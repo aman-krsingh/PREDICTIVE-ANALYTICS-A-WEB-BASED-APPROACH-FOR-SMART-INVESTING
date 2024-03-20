@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Website Title</title>
+    <!-- Add CSS for styling -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #fff6eb; /* Cream background color */
+        font-family: Arial, sans-serif; /* Font family */
+      }
+
+      /* Navigation bar styles */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px; /* Increased padding */
+        background-color: #a2c3f4; /* Aqua color */
+        color: #333; /* Dark text color */
+      }
+      .navbar-brand {
+        font-size: 1.2rem; /* Font size */
+      }
+      .navbar-menu {
+        display: flex;
+        list-style-type: none;
+      }
+      .navbar-menu li {
+        margin-right: 20px;
+      }
+      .navbar-menu li a {
+        color: #333; /* Dark text color */
+        text-decoration: none;
+      }
+
+      /* Section styles */
+      section {
+        padding: 50px 20px; /* Padding for each section */
+      }
+
+      /* Footer styles */
+      .footer {
+        background-color: #333; /* Darker tone for footer */
+        color: white;
+        padding: 20px;
+        width: 100%;
+      }
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-members {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Gap between team member blocks */
+      }
+      .footer-members div {
+        flex: 1 1 200px; /* Equal width for team member blocks */
+      }
+      .footer-form {
+        max-width: 400px;
+      }
+      .footer-form input[type="text"],
+      .footer-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .footer-form input[type="submit"] {
+        background-color: #555; /* Dark gray */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      /* Additional styles for section 3 and 4 */
+      .card-container {
+        display: flex;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        gap: 20px; /* Space between cards */
+        padding: 20px; /* Padding inside the div */
+      }
+      .card {
+        width: 300px; /* Card width */
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #f9f9f9; /* Background color */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+      }
+
+      /* Rounded container */
+      .rounded-container {
+        border-radius: 20px; /* Rounded corners */
+        background-color: #dcedd1; /* Background color */
+        padding: 20px; /* Padding */
+        margin-bottom: 20px; /* Bottom margin */
+      }
+    </style>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include Chart.js zoom plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.1.1/chartjs-plugin-zoom.min.js"></script>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <div class="navbar">
+      <div class="navbar-brand">
+        <img
+          src="https://example.com/your-logo.png"
+          alt="Logo"
+          width="40"
+          height="40"
+        />
+        Website Name
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="#section1">Section 1</a></li>
+        <li><a href="#section2">Section 2</a></li>
+        <li><a href="#section3">Section 3</a></li>
+        <li><a href="#section4">Section 4</a></li>
+      </ul>
+    </div>
+
+    <!-- Section 1 -->
+    <section id="section1">
+      <h2>Section 1: model input and output</h2>
+      <div style="display: flex">
+        <div style="width: 40%">
+          <!-- First part of the div -->
+          <form id="dataForm">
+            <label for="company">Select a company:</label>
+            <select id="company" name="company">
+              <option value="company1">Company 1</option>
+              <option value="company2">Company 2</option>
+              <option value="company3">Company 3</option>
+              <option value="company4">Company 4</option>
+              <option value="company5">Company 5</option>
+              <option value="company6">Company 6</option></select
+            ><br /><br />
+
+            <label for="days">Select number of days:</label>
+            <input
+              type="range"
+              id="days"
+              name="days"
+              min="1"
+              max="90"
+              value="30"
+            /><br /><br />
+
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div style="width: 60%">
+          <!-- Second part of the div -->
+          <div id="backendData">
+            <!-- Backend data will be displayed here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Add JavaScript code here to handle form submission and display backend data -->
+      <script>
+        // JavaScript code to handle form submission and display backend data
+        document
+          .getElementById("dataForm")
+          .addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+            // Get values from form fields
+            var selectedCompany = document.getElementById("company").value;
+            var selectedDays = document.getElementById("days").value;
+
+            // Send the data to backend using AJAX or fetch API
+
+            // Dummy code to display data in the second part
+            var backendDataDiv = document.getElementById("backendData");
+            backendDataDiv.innerHTML =
+              "<p>Selected Company: " +
+              selectedCompany +
+              "</p><p>Selected Days: " +
+              selectedDays +
+              "</p>";
+          });
+      </script>
+    </section>
+
+    <!-- Section 2 -->
+    <section id="section2">
+      <h2>Section 2: graph of diffrent company.</h2>
+      <div>
+        <!-- Div to display interactive graphs -->
+        <canvas id="interactiveGraph" width="400" height="200"></canvas>
+
+        <!-- Dropdown menu to select a company -->
+        <div>
+          <label for="selectCompany">Select a company:</label>
+          <select id="selectCompany" name="selectCompany">
+            <option value="company1">Company 1</option>
+            <option value="company2">Company 2</option>
+            <option value="company3">Company 3</option>
+            <option value="company4">Company 4</option>
+            <option value="company5">Company 5</option>
+            <option value="company6">Company 6</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Add JavaScript code here to handle dropdown selection and display interactive graphs accordingly -->
+      <script>
+        // JavaScript code to handle dropdown selection and display interactive graphs
+        document
+          .getElementById("selectCompany")
+          .addEventListener("change", function () {
+            var selectedCompany = this.value;
+            // Fetch data for the selected company from the backend using AJAX or fetch API
+            // Update the interactive graph accordingly
+          });
+
+        // Example of generating a random graph using Chart.js with zoom plugin
+        var ctx = document.getElementById("interactiveGraph").getContext("2d");
+        var chart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+            ],
+            datasets: [
+              {
+                label: "Example Data",
+                data: [65, 59, 80, 81, 56, 55, 40],
+                borderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 1,
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+            plugins: {
+              zoom: {
+                pan: {
+                  enabled: false, // Disable pan
+                },
+                zoom: {
+                  enabled: true,
+                  mode: "xy",
+                },
+              },
+            },
+          },
+        });
+      </script>
+    </section>
+
+    <!-- Section 3 -->
+    <section id="section3">
+      <h2>Section 3: new feed and current affair.</h2>
+      <div class="rounded-container">
+        <!-- Added a div with rounded corners -->
+        <div class="card-container">
+          <!-- Card 1 -->
+          <div class="card" style="background-color: #ffe0b2">
+            <!-- Light shade of orange -->
+            <h3>News Title 1</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card" style="background-color: #bbdefb">
+            <!-- Light shade of blue -->
+            <h3>News Title 2</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Add more cards -->
+          <!-- Duplicate the card divs as needed -->
+          <!-- Example Card 3 -->
+          <div class="card" style="background-color: #c8e6c9">
+            <!-- Light shade of green -->
+            <h3>News Title 3</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 4 -->
+          <div class="card" style="background-color: #ffd180">
+            <!-- Light shade of yellow -->
+            <h3>News Title 4</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 5 -->
+          <div class="card" style="background-color: #b39ddb">
+            <!-- Light shade of purple -->
+            <h3>News Title 5</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Add more cards -->
+          <!-- Duplicate the card divs as needed -->
+          <!-- Example Card 6 -->
+          <div class="card" style="background-color: #ffcdd2">
+            <!-- Light shade of red -->
+            <h3>News Title 6</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 7 -->
+          <div class="card" style="background-color: #f0f4c3">
+            <!-- Light shade of lime -->
+            <h3>News Title 7</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 8 -->
+          <div class="card" style="background-color: #b2dfdb">
+            <!-- Light shade of teal -->
+            <h3>News Title 8</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 9 -->
+          <div class="card" style="background-color: #f48fb1">
+            <!-- Light shade of pink -->
+            <h3>News Title 9</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 10 -->
+          <div class="card" style="background-color: #c5cae9">
+            <!-- Light shade of indigo -->
+            <h3>News Title 10</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 11 -->
+          <div class="card" style="background-color: #ffcc80">
+            <!-- Light shade of amber -->
+            <h3>News Title 11</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 12 -->
+          <div class="card" style="background-color: #b2dfdb">
+            <!-- Light shade of teal -->
+            <h3>News Title 12</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 13 -->
+          <div class="card" style="background-color: #ffcdd2">
+            <!-- Light shade of red -->
+            <h3>News Title 13</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 14 -->
+          <div class="card" style="background-color: #f0f4c3">
+            <!-- Light shade of lime -->
+            <h3>News Title 14</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+
+          <!-- Example Card 15 -->
+          <div class="card" style="background-color: #b2dfdb">
+            <!-- Light shade of teal -->
+            <h3>News Title 15</h3>
+            <p>
+              This is a sample news feed. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Sed et lectus vel mauris varius
+              tempor.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section id="section4">
+      <h2>Section 4: wikipdia info of big famous people</h2>
+      <div class="card-container">
+        <!-- Example Card 1 -->
+        <div class="card" style="background-color: #ffe0b2">
+          <!-- Light shade of orange -->
+          <h3>News Title 1</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 2 -->
+        <div class="card" style="background-color: #bbdefb">
+          <!-- Light shade of blue -->
+          <h3>News Title 2</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Add more cards as needed -->
+        <!-- Duplicate the card divs as needed -->
+        <!-- Example Card 3 -->
+        <div class="card" style="background-color: #c8e6c9">
+          <!-- Light shade of green -->
+          <h3>News Title 3</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 4 -->
+        <div class="card" style="background-color: #ffd180">
+          <!-- Light shade of yellow -->
+          <h3>News Title 4</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 5 -->
+        <div class="card" style="background-color: #b39ddb">
+          <!-- Light shade of purple -->
+          <h3>News Title 5</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 6 -->
+        <div class="card" style="background-color: #ffcdd2">
+          <!-- Light shade of red -->
+          <h3>News Title 6</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 7 -->
+        <div class="card" style="background-color: #f0f4c3">
+          <!-- Light shade of lime -->
+          <h3>News Title 7</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 8 -->
+        <div class="card" style="background-color: #b2dfdb">
+          <!-- Light shade of teal -->
+          <h3>News Title 8</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 9 -->
+        <div class="card" style="background-color: #f48fb1">
+          <!-- Light shade of pink -->
+          <h3>News Title 9</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 10 -->
+        <div class="card" style="background-color: #c5cae9">
+          <!-- Light shade of indigo -->
+          <h3>News Title 10</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 11 -->
+        <div class="card" style="background-color: #ffcc80">
+          <!-- Light shade of amber -->
+          <h3>News Title 11</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 12 -->
+        <div class="card" style="background-color: #b2dfdb">
+          <!-- Light shade of teal -->
+          <h3>News Title 12</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 13 -->
+        <div class="card" style="background-color: #ffcdd2">
+          <!-- Light shade of red -->
+          <h3>News Title 13</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 14 -->
+        <div class="card" style="background-color: #f0f4c3">
+          <!-- Light shade of lime -->
+          <h3>News Title 14</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+
+        <!-- Example Card 15 -->
+        <div class="card" style="background-color: #b2dfdb">
+          <!-- Light shade of teal -->
+          <h3>News Title 15</h3>
+          <p>
+            This is a sample news feed. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed et lectus vel mauris varius tempor.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-members">
+          <div>
+            <h3>John Doe</h3>
+            <p>CEO</p>
+          </div>
+          <div>
+            <h3>Jane Smith</h3>
+            <p>CTO</p>
+          </div>
+          <div>
+            <h3>Michael Johnson</h3>
+            <p>Lead Developer</p>
+          </div>
+        </div>
+        <form class="footer-form">
+          <input type="text" placeholder="Email Address" />
+          <textarea placeholder="Message"></textarea>
+          <input type="submit" value="Send" />
+        </form>
+        <a href="http://github">links</a>
+      </div>
+      <p>&copy; 2024 Your Website. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
