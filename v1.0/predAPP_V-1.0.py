@@ -24,7 +24,7 @@ API_key = 'WSKF50ODKWY4WP1O'
 ts = TimeSeries(key= API_key, output_format='pandas')
 
 #res = ts.get_daily(ticker, outputsize='full')
-res = ts.get
+
 
 #df=res[0]
 #df.to_csv('AAPL.csv')
