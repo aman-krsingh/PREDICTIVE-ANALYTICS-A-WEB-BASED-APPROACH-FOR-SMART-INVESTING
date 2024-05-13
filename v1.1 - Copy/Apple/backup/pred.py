@@ -4,24 +4,24 @@ from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 from numpy import array
 from tensorflow.keras.models import load_model
+model = load_model('predModel_V2.h5')
 
-model = load_model('predModel.h5')
 
-ticker='META'
 
-data = pd.read_csv(f'./data/{ticker}.csv')
+data = pd.read_csv('./data/AAPL.csv')
 
 size = len(data)
 year = 365 * 5
 df = data[size - year:]
 
 data = df.reset_index()['4. close']
+backup_data = data
 
 scaler = MinMaxScaler(feature_range=(0,1))
 data = scaler.fit_transform(np.array(data).reshape(-1,1))
 
 #splitting data.
-training_size = int(len(data) * 0.60)
+training_size = int(len(data) * 0.40)
 test_size = len(data) - training_size
 
 test_data = data[training_size:len(data), :1]
@@ -74,15 +74,12 @@ while(i<days):
         i=i+1
 #print(lst_output)
 
-
 time_step_plus1 = time_step + 1
 
 #number from 1 to time_step + 1
 days_new=np.arange(1, time_step_plus1)
 
-
-
-#number from time_step +1 to 30 more (6 to 35 [30 numbers])
+#number from time_step +1 to finial length
 days_pred =np.arange(time_step_plus1, time_step_plus1 + len(lst_output))
 
 ld=len(data)
@@ -91,24 +88,25 @@ L = ld-time_step
 new_data=data.tolist()
 new_data.extend(lst_output)
 
-
-#   last 5 days data.
-
-# plt.plot(days_new,scaler.inverse_transform(data[L:]), color ="red")
 # days_new=scaler.inverse_transform(data[L:])
-# print(days_new)
+# days_pred=scaler.inverse_transform(lst_output)
+# plt.plot(days_new, color ="red")
+# plt.plot(days_pred, color = "green")
+# plt.show()
 
-#   future 30days predicted value.
-days_pred = scaler.inverse_transform(lst_output)
-plt.plot(days_pred, color = "red")
+plt.plot(days_new,scaler.inverse_transform(data[L:]), color ="red")
+plt.plot(days_pred,scaler.inverse_transform(lst_output), color = "green")
 plt.show()
 
+# new_data = scaler.inverse_transform(new_data).tolist()
+# plt.plot(backup_data, color='blue')
+# plt.plot(days_pred,scaler.inverse_transform(lst_output), color = "green")
+# plt.show()
 
 new_data=data.tolist()
 new_data.extend(lst_output)
 new_data = scaler.inverse_transform(new_data).tolist()
-data = scaler.inverse_transform(data)
 
-plt.plot(new_data, color='red')
-plt.plot(data, color='blue')
+plt.plot(backup_data, color='black')
+plt.plot(new_data, color='green')
 plt.show()

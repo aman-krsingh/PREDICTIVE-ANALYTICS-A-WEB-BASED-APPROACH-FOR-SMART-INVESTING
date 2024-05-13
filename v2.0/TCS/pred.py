@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 
 model = load_model('predModel.h5')
 
-ticker='META'
+ticker='TCS.NS'
 
 data = pd.read_csv(f'./data/{ticker}.csv')
 
@@ -15,18 +15,18 @@ size = len(data)
 year = 365 * 5
 df = data[size - year:]
 
-data = df.reset_index()['4. close']
+data = df.reset_index()['Close']
 
 scaler = MinMaxScaler(feature_range=(0,1))
 data = scaler.fit_transform(np.array(data).reshape(-1,1))
 
 #splitting data.
-training_size = int(len(data) * 0.60)
+training_size = int(len(data) * 0.80)
 test_size = len(data) - training_size
 
 test_data = data[training_size:len(data), :1]
 
-time_step =5
+time_step =15
 
 #future prediction
 

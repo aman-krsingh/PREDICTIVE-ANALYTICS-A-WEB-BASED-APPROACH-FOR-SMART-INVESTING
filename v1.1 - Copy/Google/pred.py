@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 
 model = load_model('predModel.h5')
 
-ticker='META'
+ticker='GOOG'
 
 data = pd.read_csv(f'./data/{ticker}.csv')
 
@@ -26,7 +26,7 @@ test_size = len(data) - training_size
 
 test_data = data[training_size:len(data), :1]
 
-time_step =5
+time_step =15
 
 #future prediction
 
@@ -80,7 +80,7 @@ time_step_plus1 = time_step + 1
 #number from 1 to time_step + 1
 days_new=np.arange(1, time_step_plus1)
 
-
+time_step +1
 
 #number from time_step +1 to 30 more (6 to 35 [30 numbers])
 days_pred =np.arange(time_step_plus1, time_step_plus1 + len(lst_output))

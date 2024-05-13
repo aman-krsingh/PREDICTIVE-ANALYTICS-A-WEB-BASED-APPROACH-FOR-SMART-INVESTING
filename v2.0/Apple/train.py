@@ -15,13 +15,13 @@ from sklearn.metrics import mean_squared_error
 
 
 
-data = pd.read_csv('./data/APPL.csv')
+data = pd.read_csv('./data/AAPL.csv')
 
 size = len(data)
 year = 365 * 5
 df = data[size - year:]
 
-data = df.reset_index()['4. close']
+data = df.reset_index()['Close']
 
 #data.to_csv('./data/AAPL_5yrs.csv')
 

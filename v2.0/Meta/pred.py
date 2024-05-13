@@ -15,7 +15,7 @@ size = len(data)
 year = 365 * 5
 df = data[size - year:]
 
-data = df.reset_index()['4. close']
+data = df.reset_index()['Close']
 
 scaler = MinMaxScaler(feature_range=(0,1))
 data = scaler.fit_transform(np.array(data).reshape(-1,1))

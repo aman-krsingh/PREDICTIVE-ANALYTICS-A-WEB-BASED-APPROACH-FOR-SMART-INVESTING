@@ -13,36 +13,35 @@ import tensorflow as tf
 
 from sklearn.metrics import mean_squared_error
 
-
-
-data = pd.read_csv('./data/APPL.csv')
+ticker='^NSEI'
+data = pd.read_csv(f'./data/{ticker}.csv')
 
 size = len(data)
 year = 365 * 5
 df = data[size - year:]
 
-data = df.reset_index()['4. close']
+data = df.reset_index()['Close']
 
-#data.to_csv('./data/AAPL_5yrs.csv')
+data.to_csv(f'./data/{ticker}_5yrs.csv')
 
 #print (data)
-plt.plot(data)
-plt.show()
+# plt.plot(data)
+# plt.show()
 
 scaler = MinMaxScaler(feature_range=(0,1))
 data = scaler.fit_transform(np.array(data).reshape(-1,1))
-# print(data)
+#print(data)
 
 
 #splitting data.
-training_size = int(len(data) * 0.40)
+training_size = int(len(data) * 0.85)
 test_size = len(data) - training_size
 
 train_data, test_data = data[0:training_size,:], data[training_size:len(data), :1]
 #print(training_size, test_size)
 
 
-## creating function for creating dataset for train and test.
+#    creating function for creating dataset for train and test.
 
 def create_dataset(dataset, time_step = 1):
     dataX, dataY =[], []
@@ -52,7 +51,7 @@ def create_dataset(dataset, time_step = 1):
         dataY.append(dataset[i + time_step, 0])
     return np.array(dataX), np.array(dataY)
 
-time_step =5
+time_step =10
 
 X_train, Y_train = create_dataset(train_data, time_step)
 X_test, Y_test = create_dataset(test_data, time_step)
@@ -67,6 +66,7 @@ X_test = X_test.reshape(X_test.shape[0], X_test.shape[1], 1)
 #good to go for createing model.
 
 model = Sequential()
+
 model.add(LSTM(50,return_sequences=True,input_shape=(time_step,1)))
 model.add(LSTM(50,return_sequences=True))
 model.add(LSTM(50))
@@ -76,8 +76,8 @@ model.compile(loss='mean_squared_error', optimizer='adam')
 #model.summary()
 
 #traning the model and saving it.
-model.fit(X_train, Y_train,validation_data=(X_test,Y_test),epochs=150,batch_size=64,verbose=1)
-model.save('predModel_V2.h5')
+model.fit(X_train, Y_train,validation_data=(X_test,Y_test),epochs=100,batch_size=64,verbose=1)
+model.save('predModel.h5')
 
 
 #prediction for test data

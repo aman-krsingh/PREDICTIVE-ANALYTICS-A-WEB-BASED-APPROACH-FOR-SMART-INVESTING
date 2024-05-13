@@ -3,35 +3,56 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
-import math 
-from numpy import array
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 import tensorflow as tf
 
+import math 
 from sklearn.metrics import mean_squared_error
 
+from numpy import array
 
 
-data = pd.read_csv('./data/APPL.csv')
+#ticker='AAPL'
+#API_key = 'WSKF50ODKWY4WP1O'
+#ts = TimeSeries(key= API_key, output_format='pandas')
+#res = ts.get_daily(ticker,, outputsize='full')
+
+# data = pd.read_csv('./data/AAPL.csv')
+
+# size = len(data)
+# year = 365 * 5
+# df = data[size - year:]
+
+
+# #df=df[0]
+# df.to_csv('./data/AAPL_5-yrs.csv')
+# data = df.reset_index()['4. close']
+
+#####################
+data = pd.read_csv('./AAPL_data.csv')
 
 size = len(data)
 year = 365 * 5
 df = data[size - year:]
 
+# df.to_csv('./data/AAPL_5-yrs.csv')
 data = df.reset_index()['4. close']
+#####################
 
-#data.to_csv('./data/AAPL_5yrs.csv')
+# data.to_csv('AAPL.csv')
+
 
 #print (data)
-plt.plot(data)
-plt.show()
+# plt.plot(data)
+# plt.show()
 
 scaler = MinMaxScaler(feature_range=(0,1))
 data = scaler.fit_transform(np.array(data).reshape(-1,1))
 # print(data)
+# print(len(data))
 
 
 #splitting data.
@@ -77,7 +98,7 @@ model.compile(loss='mean_squared_error', optimizer='adam')
 
 #traning the model and saving it.
 model.fit(X_train, Y_train,validation_data=(X_test,Y_test),epochs=150,batch_size=64,verbose=1)
-model.save('predModel_V2.h5')
+#model.save('predModel_V2.h5')
 
 
 #prediction for test data
