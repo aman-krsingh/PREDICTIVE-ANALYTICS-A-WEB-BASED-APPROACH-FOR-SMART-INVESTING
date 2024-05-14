@@ -32,7 +32,7 @@ data = scaler.fit_transform(np.array(data).reshape(-1,1))
 
 
 #splitting data.
-training_size = int(len(data) * 0.40)
+training_size = int(len(data) * 0.80)
 test_size = len(data) - training_size
 
 train_data, test_data = data[0:training_size,:], data[training_size:len(data), :1]
@@ -49,7 +49,7 @@ def create_dataset(dataset, time_step = 1):
         dataY.append(dataset[i + time_step, 0])
     return np.array(dataX), np.array(dataY)
 
-time_step =5
+time_step =10
 
 X_train, Y_train = create_dataset(train_data, time_step)
 X_test, Y_test = create_dataset(test_data, time_step)

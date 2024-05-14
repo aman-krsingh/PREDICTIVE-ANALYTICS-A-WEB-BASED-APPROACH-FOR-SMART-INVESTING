@@ -21,12 +21,12 @@ scaler = MinMaxScaler(feature_range=(0,1))
 data = scaler.fit_transform(np.array(data).reshape(-1,1))
 
 #splitting data.
-training_size = int(len(data) * 0.40)
+training_size = int(len(data) * 0.80)
 test_size = len(data) - training_size
 
 test_data = data[training_size:len(data), :1]
 
-time_step =5
+time_step =10
 
 #future prediction
 
