@@ -5,9 +5,9 @@ import pandas as pd
 from numpy import array
 from tensorflow.keras.models import load_model
 
-model = load_model('predModel.h5')
-
 ticker='^NSEI'
+
+model = load_model(f'predModel_{ticker}.h5')
 
 data = pd.read_csv(f'./data/{ticker}.csv')
 

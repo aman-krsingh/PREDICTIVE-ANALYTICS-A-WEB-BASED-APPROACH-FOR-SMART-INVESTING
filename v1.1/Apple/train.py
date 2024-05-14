@@ -14,7 +14,6 @@ import tensorflow as tf
 from sklearn.metrics import mean_squared_error
 
 
-
 data = pd.read_csv('./data/APPL.csv')
 
 size = len(data)

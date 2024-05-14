@@ -5,9 +5,9 @@ import pandas as pd
 from numpy import array
 from tensorflow.keras.models import load_model
 
-model = load_model('predModel.h5')
-
 ticker='ADANIENT.NS'
+
+model = load_model(f'predModel_{ticker}.h5')
 
 data = pd.read_csv(f'./data/{ticker}.csv')
 
@@ -79,7 +79,6 @@ time_step_plus1 = time_step + 1
 
 #number from 1 to time_step + 1
 days_new=np.arange(1, time_step_plus1)
-
 
 
 #number from time_step +1 to 30 more (6 to 35 [30 numbers])

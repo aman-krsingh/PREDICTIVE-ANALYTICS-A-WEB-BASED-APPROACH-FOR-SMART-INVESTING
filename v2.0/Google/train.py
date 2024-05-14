@@ -77,7 +77,7 @@ model.compile(loss='mean_squared_error', optimizer='adam')
 
 #traning the model and saving it.
 model.fit(X_train, Y_train,validation_data=(X_test,Y_test),epochs=150,batch_size=64,verbose=1)
-model.save('predModel.h5')
+model.save(f'predModel_{ticker}.h5')
 
 
 #prediction for test data

@@ -1,4 +1,3 @@
-from alpha_vantage.timeseries import TimeSeries
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
@@ -9,13 +8,11 @@ from numpy import array
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
-import tensorflow as tf
 
 from sklearn.metrics import mean_squared_error
 
-
-
-data = pd.read_csv('./data/AAPL.csv')
+ticker='AAPL'
+data = pd.read_csv(f'./data/{ticker}.csv')
 
 size = len(data)
 year = 365 * 5
@@ -23,11 +20,11 @@ df = data[size - year:]
 
 data = df.reset_index()['Close']
 
-#data.to_csv('./data/AAPL_5yrs.csv')
+data.to_csv(f'./data/{ticker}_5yrs.csv')
 
 #print (data)
-plt.plot(data)
-plt.show()
+# plt.plot(data)
+# plt.show()
 
 scaler = MinMaxScaler(feature_range=(0,1))
 data = scaler.fit_transform(np.array(data).reshape(-1,1))
@@ -67,17 +64,19 @@ X_test = X_test.reshape(X_test.shape[0], X_test.shape[1], 1)
 #good to go for createing model.
 
 model = Sequential()
+
 model.add(LSTM(50,return_sequences=True,input_shape=(time_step,1)))
 model.add(LSTM(50,return_sequences=True))
 model.add(LSTM(50))
 model.add(Dense(1))
+
 model.compile(loss='mean_squared_error', optimizer='adam')
 
 #model.summary()
 
 #traning the model and saving it.
 model.fit(X_train, Y_train,validation_data=(X_test,Y_test),epochs=150,batch_size=64,verbose=1)
-model.save('predModel_V2.h5')
+model.save(f'predModel_{ticker}.h5')
 
 
 #prediction for test data
